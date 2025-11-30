@@ -18,8 +18,14 @@ class Tracer {
   std::source_location location;
 };
 
+#ifdef NDEBUG
+    #define trace() ((void)0)
+#else
+    #define trace() Tracer tracer(std::source_location::current())
+#endif
+
 int main() {
-  Tracer tracer;
+  trace();
   std::cout << "Hello World!\n";
   return 0;
 }
